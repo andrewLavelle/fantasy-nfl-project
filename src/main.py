@@ -1,7 +1,7 @@
 from data import get_data
 
 def get_player_position():
-    print("=== Select Player Position")
+    print("=== Select Player Position ===")
     print("[1] Quarterback")
     print("[2] Running Back")
     print("[3] Wide Receiver")
@@ -31,5 +31,6 @@ def get_player_name():
 plr_position = get_player_position()
 plr_name = get_player_name()
 
-data = get_data(plr_position, plr_name)
+plr_data = get_data(plr_position, plr_name)
 
+print(plr_data)

@@ -17,6 +17,11 @@ def get_data(pos, plr):
 
     url_end = pos_to_page[pos]
 
+    plr_info = {
+        "player": plr,
+        "data": {}
+    }
+
     for year in range(2025, 2001, -1):
         url = "https://www.fantasypros.com/nfl/stats/"+url_end+f"?year={year}"
         response = requests.get(url)
@@ -26,6 +31,7 @@ def get_data(pos, plr):
         table = soup.find("table", id="data")
         rows = table.find_all("tr")
 
+        plr_found = False
         for row in rows[2:]:
             cells = row.find_all("td")
             name = cells[1].get_text(strip=True)
@@ -35,13 +41,15 @@ def get_data(pos, plr):
 
             if name.lower() == plr.lower():
                 fpts = float(cells[15].get_text(strip=True))
-                print(name, fpts)
+                
+                plr_info["data"][year] = fpts
+                plr_found = True
 
                 # player has been found, exit loop
                 break
         
         # Player wasn't found, gets 0 for the year
-        print(name, 0)
+        if not plr_found:
+            plr_info["data"][year] = 0
         
-    print(pos)
-    print(plr)
+    return plr_info
