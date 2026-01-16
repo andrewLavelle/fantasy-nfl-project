@@ -1,4 +1,5 @@
 from data import get_data
+from graph import plot_data
 
 def get_player_position():
     print("=== Select Player Position ===")
@@ -33,4 +34,4 @@ plr_name = get_player_name()
 
 plr_data = get_data(plr_position, plr_name)
 
-print(plr_data)
+plot_data(plr_data)
